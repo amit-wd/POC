@@ -10,8 +10,7 @@ Cmd+D or shake for dev menu`,
 Shake or press menu button for dev menu`,
 });
 
-type Props = {};
-export class App extends React.Component<Props> {
+export class Hello extends React.Component {
   render() {
     return (
       <View style={styles.container}>
