@@ -1,9 +1,10 @@
-# React Native TypeScript Boilerplate
-This is a boilerplate project for working with React Native and TypeScript.
+# React Native TypeScript Boilerplate -- Training
+This is a version of the boilerplate app that is geared for training and
+introducing new developers to React Native.
 
-You can copy or reference this repository in order to get started with a React Native
-project using a TypeScript source that includes environment variable
-configuration, linting, and testing with sensible defaults.
+* For the app base you should use for projects, see the `master` branch.
+* For an example app with standard dependencies and other examples, see the
+ `example` branch.
 
 ## Installation
 Requirements:
@@ -82,7 +83,7 @@ the `src` directory. For example:
 
 ```ts
 // App.tsx
-import { API_URL } from 'src/Config.ts';
+import { API_HOST } from 'src/Config.ts';
 ```
 
 This will work instead of having to do `../src/Config.ts` or `./Config.ts` or
@@ -105,7 +106,7 @@ Configuration of the app is handled through environment variables. When running
 the development server, or bundling, the environment variables must be set.
 
 ```
-API_URL=test react-native start
+API_HOST=test react-native start
 ```
 
 In order to add a new environment variable, update `src/Config.ts`:
@@ -115,95 +116,3 @@ In order to add a new environment variable, update `src/Config.ts`:
 ```
 
 Now you can `import { NAME } from 'src/Config.ts` wherever it's needed.
-
-Remember to set the environment variables you need  before running `react-native
-start`, `xcodebuild`, or `android/gradlew assembe$DEBUG_OR_RELEASE`.
-
-## Building
-Developing using the local server is highly recommended. If you need to test on
-real devices or create a build you will not necessarily be able to use live
-reloading or hot reloading to assist you.
-
-These builds steps will also work to create builds for qa and release.
-
-### iOS
-iOS automatically creates a release bundle used by the app when it's built for
-release so you don't have to bundle manually.
-
-First, set whatever environment variables you need to do the build.
-
-```sh
-xcodebuild -project ios/$PROJECT.xcodeproj -scheme $SCHEME \
-  -configuration $DEBUG_OR_RELEASE \
-  -archivePath ios/output/$PROJECT.xcarchive \
-  clean archive
-```
-
-This will generate the build artifact xcarchive in `ios/output/$PROJECT.xcarchive`.
-
-You can now create a .ipa using `xcodebuild` or Xcode with this build scheme.
-
-### Android
-Android works a bit differently depending upon whether you're building for
-debug or release.
-
-#### Debug
-Android does not automatically create a JavaScript bundle for debug, so you
-must have your development server running to serve the bundle (`react-native
-start `).
-
-```sh
-cd android
-./gradlew assembleDebug
-```
-
-This will create `android-debug.apk` in `android/app/build/outputs/apk` which
-you can install on an app or emulator.
-
-If you have an emulator running, you can also do `./gradlew installDebug` to
-install it to the emulator immediately.
-
-#### Release
-First, set whatever environment variables you need for the build.
-
-In the `andrdoid/` directory, `./gradlew assembleRelease` will automatically
-build the JavaScript bundle and create the unsigned apk for you in
-`android/app/build/outputs/apk`.
-
-**Note:** The `bundleJsAndAssets` build step will only run if the source or
-assets have changed. If you only want to change configuration but create a new
-build, run `./gradlew clean` first.
-
-If the build does not work for some reason, try `rm -rf node_modules` and
-`yarn install` and retry.
-
-## Philosophy
-> *Why `yarn` over `npm`?
-
-The tools are very similar and can probably used interchangeably in a lot of
-cases -- at least for local development. `yarn` offers some advantages over
-`npm`.
-
-1. `yarn` is faster (although less-so with the latest `npm`).
-2. `yarn.lock` offers more consistency than `package-lock.json`
-   * It also avoids an annoying <kbd>tab</kbd> completion conflict with `package.json`
-3. Most React / Facebook tools, libraries, and documentation prefer yarn or
- use it exclusively.
-4. `yarn` has a simpler / more straightforward mechanism for adding and managing
- dependencies and for running scripts.
-
-> *Why aren't there more `package.json#scripts` such as `yarn start`?
-
-Understanding how to use a tool properly for development is important. The lack
-of setup scripts encourages developers to look up the documentation of the tool
-they want to use so they can set the options they need for the specific task
-they're trying to do.
-
-In a lot of cases, scripts don't offer much additional help. So if we had
-`"start": "react-native start"` all that would do is allow us to run `yarn start`
-instead of `yarn react-native start` and the latter is more meaningful.
-
-Sometimes it is useful to have scripts when we want to force particular
-behavior. Examples are `yarn test` and `yarn lint` where we want to enforce
-proper type checking and linting of all required files in addition to some base
-behavior. These scripts are also more complex.

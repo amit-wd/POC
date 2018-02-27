@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Platform, StyleSheet, Text, View } from 'react-native';
 
-import { API_URL } from 'src/Config';
+import { EXAMPLE } from 'src/Config';
 
 const instructions = Platform.select({
   ios: `Press Cmd+R to reload,
@@ -16,7 +16,7 @@ export class App extends React.Component<Props> {
     return (
       <View style={styles.container}>
         <Text style={styles.welcome}>Welcome to React Native!</Text>
-        <Text style={styles.instructions}>{API_URL}</Text>
+        <Text style={styles.instructions}>{EXAMPLE}</Text>
         <Text style={styles.instructions}>{instructions}</Text>
       </View>
     );
