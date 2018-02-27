@@ -53,6 +53,58 @@ Remember that the React Native server must be running for `run-<platform>` to
 work. This is done with `react-native start`. You may want to use
 `react-native start --reset-cache` in some cases.
 
+### Debugging
+Install the third party React Native Debugger: https://github.com/jhen0409/react-native-debugger
+
+```sh
+brew update && brew cask install react-native-debugger
+```
+
+This is a standalone app. In order to use it, open it via:
+
+```sh
+open "rndebugger://set-debugger-loc?host=localhost&port=8081"
+```
+
+Once the app is running in your simulator/emulator, type <kbd>Cmd-d</kbd> and
+select "Debug JS Remotely" if it is not already selected. Now you should see
+logging in the debugger.
+
+You can also set the debugger at React Native server start time using the
+`REACT_DEBUGGER` environment variable. For example:
+
+```sh
+REACT_DEBUGGER="open -g 'rndebugger://set-debugger-loc?port=8081' || ''" react-native start
+```
+
+This should open the debugger automatically in the background when you turn on
+"Debug JS Remotely." You can remove the `-g` flag if you want it to pop to the
+foreground when it opens.
+
+The project setup should allow Redux devtools to work out of the box.
+
+**Note:** You can only use the debugger with one emulator/simulator/device at
+a time.
+
+### Hot Reloading
+Hot reloading reloads the current view / screen with changes you've made to that
+file or any dependent files in real time. This is different than live reloading
+which will restart the app automatically when you make changes. Using hot
+reloading is highly recommended at least in cases where you are developing
+screens.
+
+Hot reloading should be supported with our base modules. Some hot reloading will
+cause errors or not work properly. In this case, you can manually reload the
+app with <kbd>Cmd-r</kbd> on iOS or <kbd>r r</kbd> on Android. If hot reloading
+is causing too many issues while you're developing something, you can also turn
+it off and turn live reloading on (or just handle reloading on your own).
+
+If you are running multiple simulators or devices, hot/live reloading changes
+will propagate to all of them at once.
+
+If working from the base or example app, try enabling hot reloading and then
+making a change to a component on your screen to see it in action.
+
 ### Unit Testing
 Write unit tests relative to the files they are testing in corresponding
 `__tests__` directories (per jest standards). A working sample is given in
