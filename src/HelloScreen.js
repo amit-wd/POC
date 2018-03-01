@@ -6,9 +6,9 @@ import React from 'react';
 import { Hello } from 'src/Hello';
 
 class HelloScreen extends React.Component {
-    render() {
-        return <Hello />;
-    }
+  render() {
+    return <Hello />;
+  }
 }
 
 export default HelloScreen;
